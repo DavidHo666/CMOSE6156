@@ -3,6 +3,8 @@ package com.UserProfile.controllers;
 import com.UserProfile.dao.UserProfileDao;
 import com.UserProfile.model.UserProfile;
 import org.apache.catalina.User;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -41,6 +43,11 @@ public class HelloController {
 	@GetMapping("/findByUserId/{userId}")
 	public Optional<UserProfile> getUserByUserId(@PathVariable UUID userId) {
 		return userProfileDao.findByUserId(userId);
+	}
+
+	@GetMapping("/all")
+	public Page<UserProfile> getAllUserProfiles(Pageable p) {
+		return userProfileDao.findAll(p);
 	}
 
 	@DeleteMapping("/deleteById/{id}")
